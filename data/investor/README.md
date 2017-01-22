@@ -1,0 +1,1 @@
+List of stocks from i3investor

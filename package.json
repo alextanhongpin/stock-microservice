@@ -15,6 +15,7 @@
   "dependencies": {
     "ajv": "^4.10.4",
     "babel-polyfill": "^6.20.0",
+    "cheerio": "^0.22.0",
     "co": "^4.6.0",
     "cucumber": "^2.0.0-rc.6",
     "koa": "^2.0.0",
@@ -42,5 +43,8 @@
     "mocha": "^3.2.0",
     "nodemon": "^1.11.0",
     "sinon": "^1.17.7"
+  },
+  "engines": {
+    "node": "7.1.0"
   }
 }

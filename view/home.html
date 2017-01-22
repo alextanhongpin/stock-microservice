@@ -1,11 +1,52 @@
+<style type="text/css">
+  .autocomplete {
+    position: relative; 
+    display: inline-block;
+  }
+  .autocomplete-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border: 1px solid #e7e7e7;
+    z-index: 1000;
+    width: 100%;
+
+    max-height: 200px;
+    overflow: hidden;
+    overflow-y: scroll;
+    display: none;
+  }
+  .autocomplete-results__item {
+    cursor: pointer;
+    width: 100%;
+    padding: 0 10px;
+    height: 30px;
+    line-height: 30px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+  }
+  .autocomplete-results__item:hover {
+    background: #e4e4e4;
+  }
+</style>
+
 <div class="container">
-	<nav>Hello!</nav>
+	<div id='alert'></div>
 
 	<h1>Stock</h1>
 
 	<div class="pull-right">
-		<input type="text" name="stocks_symbol">
-		<button id="create" class="btn btn-primary">Add one</button>
+    <div class="autocomplete">
+		  <input type="text" name="stocks_symbol">
+      <div class="autocomplete-results">
+<!--         <div class="autocomplete-results__item">Item 1</div>
+        <div class="autocomplete-results__item">Item 2</div> -->
+      </div>
+    </div>
+		<button id="create" class="btn btn-primary" disabled>Add one</button>
 	</div>
 	<div id="watchlist">You have no items in your watchlist.</div>
 
