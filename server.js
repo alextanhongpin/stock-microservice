@@ -13,7 +13,8 @@ import co from 'co'
 // import oauthsvc from './oauthsvc/transport.js'
 // import authsvc from './authsvc/transport.js'
 // import devicesvc from './devicesvc/transport.js'
-import stocksvc from './stocksvc/transport.js'
+import stocksvcHTTP from './stocksvc/transport-http.js'
+import stocksvcWebSocket from './stocksvc/transport-websocket.js'
 import client from './client/index.js'
 
 import errors from './modules/errors.js'
@@ -37,8 +38,8 @@ app
 .use(userAgent())
 // .use(logger())
 .use(parser())
-.use(stocksvc.routes())
-.use(stocksvc.allowedMethods())
+.use(stocksvcHTTP.routes())
+.use(stocksvcHTTP.allowedMethods())
 .use(client.routes())
 .use(client.allowedMethods())
 

@@ -18,7 +18,7 @@ class StockService extends StockServiceInterface {
     this.Stock = props.Stock
   }
   // Description: Get the stocks from the watchlist
-  async getStocks ({ symbols, provider }) {
+  async getStocks ({ symbols, provider = 'google' }) {
     const yahooQueryURL = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20(%225176.kl%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback='
     if (provider === 'google') {
       return this.getGoogleStocks({ symbols })
@@ -26,7 +26,7 @@ class StockService extends StockServiceInterface {
 
     }
   }
-  async getGoogleStocks () {
+  async getGoogleStocks ({symbols}) {
     return new Promise((resolve, reject) => {
       const googleFinanceURL = 'https://www.google.com/finance/info?infotype=infoquoteall&q=' + symbols.join(',')
       request(googleFinanceURL, {
@@ -38,12 +38,18 @@ class StockService extends StockServiceInterface {
         if (body) {
           // Sanitize body
           const sanitizedBody = body.replace('//', '')
+          console.log('sanitizedBody')
           // NOTE: What is it's an array?
-          const stocks = JSON.parse(sanitizedBody)
-          // Map and resolve the response
-          resolve({
-            stocks: stocks.map(mapGoogleStock)
-          })
+          console.log(sanitizedBody)
+          try {
+            const stocks = JSON.parse(sanitizedBody)
+            // Map and resolve the response
+            resolve({
+              stocks: stocks.map(mapGoogleStock)
+            })
+          } catch (err) {
+            console.log(err)
+          }
         }
       })
     })

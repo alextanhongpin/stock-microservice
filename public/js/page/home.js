@@ -7,8 +7,11 @@ const watchlistView = $('#watchlist')
 const alertView = $('#alert')
 const stockSymbolsInput = $('input[name=stocks_symbol]')
 const autocompleteList = $('.autocomplete-results')
+const detailView = $('#detail')
 
 let searchTimeout = null
+// Yeah, global is bad :p
+let ws = null
 
 const Model = {
   // Description: An array of stock symbols
@@ -34,6 +37,11 @@ const Model = {
       return sym !== symbol
     })
     window.localStorage.watchlist = filteredList
+
+    // Update websocket
+    if (ws) {
+      ws.send(JSON.stringify({ symbols: Model.getWatchlist() }))
+    }
   },
   search (query) {
     return new Promise((resolve, reject) => {
@@ -41,19 +49,21 @@ const Model = {
         window.clearTimeout(searchTimeout)
       }
       searchTimeout = window.setTimeout(() => {
-        fetch('/api/v1/quotes/stock-biz')
-        .then((body) => {
-          return body.json()
-        })
-        .then((json) => {
+        if (!this.request) {
+          this.request = fetch('/api/v1/quotes/stock-biz')
+          .then((body) => {
+            return body.json()
+          })
+        }
 
+        this.request.then((json) => {
           const filtered = json
           .map(m => {
             m.search = Object.values(m).join(' ')
             return m
           })
           .filter(d => d.search.toLowerCase().indexOf(query.toLowerCase()) !== -1)
-          return filtered.map(m => m.name)
+          return filtered.map(m => m.ticker)
         }).then((data) => {
           resolve(data)
         })
@@ -94,6 +104,17 @@ const View = {
     <% _.each(results, function (result) { %>
       <div class="autocomplete-results__item"><%= result %></div>
     <% }) %>
+  `),
+  detailList: _.template(`
+    <% _.each(stocks, function (stock) { %>
+      <div>
+        <p><%= stock.name %> (<%= stock.symbol %>)
+          <h4><%= stock.previous_close_price %> </h4>
+          <% var isDanger = stock.change_percent.indexOf('-') !== -1%>
+          <span class="label <%= isDanger ? 'label-danger' : 'label-success' %> pull-right"><%= stock.change_percent %>%</span>
+        </p>
+      </div>
+    <% }) %>    
   `)
 }
 
@@ -133,7 +154,6 @@ function componentWillMount () {
 }
 
 function componentDidMount () {
-
   // Listen to button click event
   createButton.click((evt) => {
     // Get the list of new symbols
@@ -146,8 +166,14 @@ function componentDidMount () {
 
     // Disabled the button after the user has added a new item
     createButton.prop('disabled', true)
+
     // Clear input
     stockSymbolsInput.val('')
+
+    // Add entry to WebSocket
+    if (ws) {
+      ws.send(JSON.stringify({ symbols: Model.getWatchlist() }))
+    }
   })
 
   // Listen to the search query
@@ -183,20 +209,49 @@ function componentDidMount () {
       }
     })
   })
-
-
 }
 
 function render () {
 
 }
 
+function initWebSocket () {
+  if (window.WebSocket) {
+    console.log('websocket supported')
+  } else {
+    window.alert('websocket unsupported')
+  }
+  ws = new WebSocket('ws://localhost:8080')
 
+  ws.onopen = (e) => {
+    console.log('connection to server opened')
+    ws.send(JSON.stringify({ symbols: Model.getWatchlist() }))
+  }
+
+  ws.onmessage = (e) => {
+    const data = JSON.parse(e.data)
+    const stocks = data.stocks
+
+    console.log('websocket:received data:', data)
+    // Update details
+    detailView.html(View.detailList({ stocks }))
+  }
+
+  ws.onerror = (e) => {
+    console.log('Websocket failure, err', err)
+  }
+
+  ws.onclose = (e) => {
+    console.log(e.reason + ' ' + e.code)
+    // render something on the ui...
+  }
+}
 
 function start () {
   componentWillMount()
   componentDidMount()
   render()
+  initWebSocket()
 }
 
 start()
