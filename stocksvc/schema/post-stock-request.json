@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  "id": "http://localhost:3000/schemas/post-stock-request.json#",
+  "properties": {
+    "name": {
+      "description": "the name of the stock purchased",
+      "minLength": 6,
+      "type": "string"
+    },
+    "price": {
+      "description": "the price when the stock was purchased or sold",
+      "type": "integer"
+    },
+    "ticker": {
+      "description": "the stock symbol",
+      "minLength": 1,
+      "type": "string"
+    },
+    "unit": {
+      "description": "the amount of stocks purchased",
+      "type": "integer"
+    },
+    "state": {
+      "type": "string",
+      "description": "the state of the stock",
+      "enum": ["buy", "sell", "hold"]
+    }
+  },
+  "required": [
+    "email",
+    "password"
+  ],
+  "title": "Add stock purchased into entry",
+  "type": "object"
+}

@@ -1,0 +1,111 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  "id": "http://localhost:3000/schemas/get-stock-response.json#",
+  "properties": {
+    "average_volume": {
+      "type": "string"
+    },
+    "beta": {
+      "type": "string"
+    },
+    "change": {
+      "type": "string"
+    },
+    "change_percent": {
+      "type": "string"
+    },
+    "dividend": {
+      "type": "string"
+    },
+    "eps": {
+      "type": "string"
+    },
+    "exchange": {
+      "type": "string"
+    },
+    "extended_hours_change": {
+      "type": "string"
+    },
+    "extended_hours_change_percent": {
+      "type": "string"
+    },
+    "extended_hours_last_trade_price": {
+      "type": "string"
+    },
+    "extended_hours_last_trade_with_currency": {
+      "type": "string"
+    },
+    "fw_pe": {
+      "type": "string"
+    },
+    "high": {
+      "type": "string"
+    },
+    "high_52": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "inst_own": {
+      "type": "string"
+    },
+    "last_trade_datetime_long": {
+      "type": "string"
+    },
+    "last_trade_datetime_string": {
+      "type": "string"
+    },
+    "last_trade_price": {
+      "type": "string"
+    },
+    "last_trade_size": {
+      "type": "string"
+    },
+    "last_trade_time": {
+      "type": "string"
+    },
+    "last_trade_with_currency": {
+      "type": "string"
+    },
+    "low": {
+      "type": "string"
+    },
+    "low_52": {
+      "type": "string"
+    },
+    "market_cap": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "open": {
+      "type": "string"
+    },
+    "pe_ratio": {
+      "type": "string"
+    },
+    "previous_close_price": {
+      "type": "string"
+    },
+    "shares": {
+      "type": "string"
+    },
+    "symbol": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "volume": {
+      "type": "string"
+    },
+    "yield": {
+      "type": "string"
+    }
+  },
+  "title": "Stocks",
+  "type": "object"
+}

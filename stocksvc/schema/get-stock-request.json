@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  "id": "http://localhost:3000/schemas/get-stock-request.json#",
+  "properties": {
+    "provider": {
+      "default": "google",
+      "enum": [
+        "google",
+        "yahoo"
+      ],
+      "type": "string"
+    },
+    "symbol": {
+      "type": "string"
+    }
+  },
+  "title": "Stocks",
+  "type": "object"
+}

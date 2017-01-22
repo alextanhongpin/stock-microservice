@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  "id": "http://localhost:3000/schemas/get-stocks-response.json#",
+  "properties": {
+    "stocks": {
+      "items": {
+        "$ref": "get-stock-response.json#"
+      },
+      "type": "array"
+    }
+  },
+  "title": "Stocks",
+  "type": "object"
+}
