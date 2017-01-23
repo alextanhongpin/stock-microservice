@@ -1,30 +1,22 @@
-Feature: Stock Watchlist
+Feature: Add Stocks to Watchlist
+  
+  Part of the "Watchlist" Epic
 
-  As a user of Stock.js
-  I want to add stock to my purchase list
-  So that I can compare the price.
+    As a user of Stock.js
+    I want to create a new watchlist
+    so that I can group stocks together
 
-  Scenario: Purchase List is empty
-    Given that I have no items in my purchase list
-    Then it should return empty results
+  Scenario: Default watchlist
+    Given that I am at my watchlist
+    Then I should have a default list
+    And it should be named "My list"
 
-  Scenario: Add entry to purchase list
-    Given that I purchase "100" units of "AAPL" stock
-    And each unit cost "500"
-    When I view my purchase list
-    Then it should have "100" units of "AAPL" stock
-    And the total should be "500000"
+  Scenario: Add new watchlist
+    Given that I have a default watchlist
+    When I create a new watchlist with the name "REITs list"
+    Then I should have two watchlist
 
-  Scenario: Remove entry from purchase list
-    Given that I only have "AAPL" in my purchase list
-    When I view my purchase list
-    Then I should have no items in it
-
-  Scenario: Add stocks to purchase list
-    Given that I purchase another additional "100" units of "AAPL" stocks
-    And the price now is "600"
-    When I view my purchase list
-    Then I will see <symbol> with unit <unit> and price <price>:
-      | symbol | unit | price | status |
-      | AAPL | 100 | 500 | BUY |
-      | AAPL | 100 | 600 | BUY |
+  Scenario: Add max of 5 watchlist
+    Given that I have two watchlist
+    Then I can only add another three watchlist
+    And the max watchlist I can have is five
