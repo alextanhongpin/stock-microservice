@@ -10,10 +10,18 @@ const client = new elasticsearch.Client({
 client.ping({
   requestTimeout: 30000,
   hello: 'elasticsearch'
-}, function (err) {
-  if (err) {
+}, (error) => {
+  if (error) {
     console.error('elasticsearch cluster is down!');
   } else {
     console.log('All is well');
   }
+})
+
+client.search({
+  q: 'rsi'
+}).then((body) => {
+  const hits = body.hits.hits
+}, (error) => {
+  console.trace(error.message)
 })

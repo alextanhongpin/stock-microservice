@@ -1,5 +1,5 @@
-# stock-alert/create-alert-rule.feature
-Feature: Create alert rule
+# stock-alert/add-rule.feature
+Feature: Add alert rule
 
   Part of the 'Stock Alert' Epic
 
