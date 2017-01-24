@@ -12,7 +12,8 @@ import co from 'co'
 
 // import oauthsvc from './oauthsvc/transport.js'
 // import authsvc from './authsvc/transport.js'
-// import devicesvc from './devicesvc/transport.js'
+import reitsvc from './reitsvc/transport.js'
+import schemasvc from './schemasvc/transport.js'
 import stocksvcHTTP from './stocksvc/transport-http.js'
 import stocksvcWebSocket from './stocksvc/transport-websocket.js'
 import client from './client/index.js'
@@ -38,8 +39,20 @@ app
 .use(userAgent())
 // .use(logger())
 .use(parser())
+
+app
 .use(stocksvcHTTP.routes())
 .use(stocksvcHTTP.allowedMethods())
+
+app
+.use(schemasvc.routes())
+.use(schemasvc.allowedMethods())
+
+app
+.use(reitsvc.routes())
+.use(reitsvc.allowedMethods())
+
+app
 .use(client.routes())
 .use(client.allowedMethods())
 

@@ -5,10 +5,10 @@ const ajv = Ajv({
   removeAdditional: true,
   useDefaults: true,
   schemas: [
-    // require('./schema/get-stock-request.json')
+    require('./schema/get-reits-response.json')
   ]
 })
 const parser = Toolbox.Parser(ajv)
 export default {
-  // getStockRequest: parser.request('http://localhost:3000/schemas/get-stock-request.json#')
+  getReitsResponse: parser.request('http://localhost:3000/schemas/get-reits-request.json#')
 }

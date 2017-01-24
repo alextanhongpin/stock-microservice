@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  "id": "http://localhost:3000/schemas/get-reits-response.json#",
+  "properties": {
+    "data": {
+      "items": {
+        "type": "object",
+        "required": [
+          "assets_tyoe",
+          "dpu",
+          "nav",
+          "period",
+          "price",
+          "name",
+          "yield"
+        ],
+        "properties": {
+          "assets_type": {
+            "type": "string",
+            "description": "the category of the assets the reits belong to"
+          },
+          "dpu": {
+            "type": "string",
+            "description": "the dividend per unit cents provided"
+          },
+          "nav": {
+            "type": "string",
+            "description": "the net asset value of the reit"
+          },
+          "period": {
+            "type": "string",
+            "description": "the current period"
+          },
+          "price": {
+            "type": "string",
+            "description": "the current price per unit share in MYR"
+          },
+          "name": {
+            "type": "string",
+            "description": "the name of the REIT"
+          },
+          "yield": {
+            "type": "string",
+            "description": "the yield in percent of this REIT"
+          }
+        }
+      },
+      "type": "array"
+    }
+  },
+  "title": "Stocks",
+  "type": "object"
+}

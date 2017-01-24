@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  "id": "http://localhost:3000/schemas/get-malaysia-stock-biz-response.json#",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "stock",
+          "name"
+        ],
+        "properties": {
+          "ticker": {
+            "type": "string",
+            "description": "Numerical or alphanumerical ticker symbols"
+          },
+          "name": {
+            "type": "string",
+            "description": "Character stock symbols"
+          },
+          "category": {
+            "type": "string",
+            "description": "The sector category in which the stock belongs to as defined by Bursa Malaysia"
+          },
+          "company": {
+            "type": "string",
+            "description": "The name of the company"
+          }
+        }
+      }
+    },
+    "_links": {
+      "type": "object",
+      "description": "a list of links"
+    },
+    "_total": {
+      "type": "integer",
+      "description": "the total items present"
+    }
+  },
+  "title": "i3investor Malaysia Stock List",
+  "type": "object"
+}

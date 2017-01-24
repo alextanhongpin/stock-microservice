@@ -1,6 +1,6 @@
 const reitsData = require('./data/all.json')
 
-// import schema from './schema.js'
+import schema from './schema.js'
 
 const getReits = async(ctx, next) => {
   try {
@@ -9,9 +9,8 @@ const getReits = async(ctx, next) => {
       paging: '',
       sort: ''
     }
-
     const reits = await ctx.service.getReits()
-    const response = reits
+    const response = schema.getReitsResponse(reits)
 
     // Serve the .json
     ctx.status = 200

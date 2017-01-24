@@ -1,0 +1,16 @@
+{
+  "data": [
+    {
+      "stock": "A&M",
+      "name": "A & M REALTY BHD"
+    }
+  ],
+  "_total": 1,
+  "_links": [
+    {
+      "next": {
+        "href": ""
+      }
+    }
+  ]
+}

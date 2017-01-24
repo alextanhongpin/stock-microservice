@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  "id": "http://localhost:3000/schemas/get-i3investor-response.json#",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "stock",
+          "name"
+        ],
+        "properties": {
+          "symbol": {
+            "type": "string",
+            "description": "The symbol for the stock used to uniquely identify publicly traded shares of a particular stock on a particular stock market."
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the company"
+          }
+        }
+      }
+    },
+    "_links": {
+      "type": "object",
+      "description": "related links to this service"
+    },
+    "_total": {
+      "type": "integer",
+      "description": "The total count of the data present"
+    }
+  },
+  "title": "i3investor Malaysia Stock List",
+  "type": "object"
+}

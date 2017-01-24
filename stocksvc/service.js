@@ -1,5 +1,11 @@
-// Create an interface
+// Dependencies
 import request from 'request'
+
+// Static data
+import i3investorData from '../data/investor/all.json'
+import malaysiaStockBizData from '../data/malaysia-stock-biz/all.json'
+import yahooFinanceData from '../data/malaysia-stock-biz/all.json'
+
 
 // The authentication interface
 class StockServiceInterface {
@@ -19,16 +25,17 @@ class StockService extends StockServiceInterface {
   }
   // Description: Get the stocks from the watchlist
   async getStocks ({ symbols, provider = 'google' }) {
-    const yahooQueryURL = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20(%225176.kl%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback='
-    if (provider === 'google') {
-      return this.getGoogleStocks({ symbols })
-    } else {
-
+    // Yahoo Service
+    if (provider === 'yahoo') {
+      return this.getYahooStocks({ symbols })
     }
+    return this.getGoogleStocks({ symbols })
   }
-  async getGoogleStocks ({symbols}) {
+  // Description: Get the google stocks
+  async getGoogleStocks ({ symbols }) {
     return new Promise((resolve, reject) => {
       const googleFinanceURL = 'https://www.google.com/finance/info?infotype=infoquoteall&q=' + symbols.join(',')
+
       request(googleFinanceURL, {
         method: 'GET'
       }, (err, response, body) => {
@@ -38,9 +45,6 @@ class StockService extends StockServiceInterface {
         if (body) {
           // Sanitize body
           const sanitizedBody = body.replace('//', '')
-          console.log('sanitizedBody')
-          // NOTE: What is it's an array?
-          console.log(sanitizedBody)
           try {
             const stocks = JSON.parse(sanitizedBody)
             // Map and resolve the response
@@ -54,7 +58,32 @@ class StockService extends StockServiceInterface {
       })
     })
   }
-
+  async getYahooStocks ({ symbols }) {
+    return new Promise((resolve, reject) => {
+      const yahooQueryURL = 'https://query.yahooapis.com/v1/public/yql?q=select * from yahoo.finance.quotes where symbol in ("' + symbols.join(',') + '")&format=json&env=store://datatables.org/alltableswithkeys&callback='
+      request(yahooQueryURL, {
+        method: 'GET'
+      }, (err, response, body) => {
+        if (err) {
+          reject(err)
+        }
+        if (body) {
+          // Sanitize body
+          const sanitizedBody = body.replace('//', '')
+          // NOTE: What is it's an array?
+          try {
+            const stocks = JSON.parse(sanitizedBody)
+            // Map and resolve the response
+            resolve({
+              stocks: stocks.map(mapYahooStocks)
+            })
+          } catch (err) {
+            console.log(err)
+          }
+        }
+      })
+    })
+  }
   async postStock ({ ticker, name, price, unit, state }) {
     const Stock = this.Stock
     const stock = new Stock()
@@ -69,6 +98,19 @@ class StockService extends StockServiceInterface {
     // Return a JSON copy
     return Object.assign({}, stock)
   }
+  // Services with the ending *Data$ means it's serving static data 
+  async geti3investorData () {
+    return Promise.resolve(i3investorData)
+  }
+
+  async getMalaysiaStockBizData () {
+    return Promise.resolve(malaysiaStockBizData)
+  }
+
+  async getYahooFinanceData () {
+    return Promise.resolve(yahooFinanceData)
+  }
+
 }
 
 // Mappers for models
@@ -115,6 +157,10 @@ const mapGoogleStock = (json) => {
     eps: json.eps,
     shares: json.shares
   }
+}
+
+const mapYahooStocks = (json) => {
+  return json
 }
 
 // Export a new auth service

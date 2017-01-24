@@ -1,15 +1,9 @@
 // endpoint.js
 
 import schema from './schema.js'
-import I3Data from '../data/investor/all.json'
-import malaysiaStockBizData from '../data/malaysia-stock-biz/all.json'
-import yahooFinanceData from '../data/malaysia-stock-biz/all.json'
 
-// Login Endpoints
+// GET /stocks
 const getStocks = async(ctx, next) => {
-  // await ctx.render('login', {
-  //   title: 'Login'
-  // })
   try {
     const request = schema.getStocksRequest({
       symbols: ctx.query.symbols.split(','),
@@ -27,6 +21,7 @@ const getStocks = async(ctx, next) => {
   }
 }
 
+// POST /stocks
 const postStock = async(ctx, next) => {
   try {
     const request = schema.postStockRequest(ctx.request.body)
@@ -39,18 +34,24 @@ const postStock = async(ctx, next) => {
   }
 }
 
-
-const getI3InvestorData = async (ctx, next) => {
+// GET /static.stocks
+const geti3investorData = async (ctx, next) => {
+  const data = await ctx.service.geti3investorData()
+  
   ctx.status = 201
-  ctx.body = I3Data
+  ctx.body = data
 }
 const getMalaysiaStockBizData = async (ctx, next) => {
+  const data = await ctx.service.getMalaysiaStockBizData()
+  
   ctx.status = 201
-  ctx.body = malaysiaStockBizData
+  ctx.body = data
 }
 const getYahooFinanceData = async (ctx, next) => {
+  const data = await ctx.service.getYahooFinanceData()
+
   ctx.status = 201
-  ctx.body = yahooFinanceData
+  ctx.body = data
 }
 // const postStock = async(ctx, next) => {
 //   try {
@@ -61,7 +62,7 @@ const getYahooFinanceData = async (ctx, next) => {
 export default {
   getStocks,
   postStock,
-  getI3InvestorData,
+  geti3investorData,
   getMalaysiaStockBizData,
   getYahooFinanceData
 }

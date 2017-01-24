@@ -10,8 +10,27 @@ class ReitServiceInterface {
 class ReitService extends ReitServiceInterface {
   async getReits () {
     // Serve static data
-    return Promise.resolve(reitsData)
+    const mappedData = mapReits(reitsData)
+    return Promise.resolve({
+      data: mappedData,
+      _total: mappedData.length
+    })
   }
+}
+
+const mapReit = (reit) => {
+  return {
+    assets_type: reit['Assets Type'],
+    dpu: reit['DPU (sen)'],
+    nav: reit['NAV'],
+    period: reit['Period'],
+    price: reit['Price'],
+    name: reit['REIT'],
+    yield: reit['Yield'],
+  }
+}
+const mapReits = (reits) => {
+  return reits.map(mapReit)
 }
 
 export default (options) => {

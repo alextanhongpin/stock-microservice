@@ -1,0 +1,18 @@
+{
+  "data": [
+    {
+      "name": "A&M",
+      "ticker": "5959",
+      "category": "Bursa Malaysia Properties Stock",
+      "company": "A & M REALTY BERHAD"
+    },
+    {
+      "name": "AASIA",
+      "ticker": "7054",
+      "category": "Bursa Malaysia Plantation Stock",
+      "company": "ASTRAL ASIA BERHAD"
+    }
+  ],
+  "_links": [],
+  "_total": 2
+}
