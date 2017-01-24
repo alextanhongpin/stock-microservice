@@ -1,7 +1,7 @@
 
 import Router from 'koa-router'
 import Endpoint from './endpoint.js'
-// import Service from './service.js'
+import Service from './service.js'
 
 const route = new Router()
 route.use(async(ctx, next) => {

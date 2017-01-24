@@ -3,15 +3,15 @@ import glob from 'glob'
 // The authentication interface
 class SchemaServiceInterface {
   getSchemas () {
-    throw new Error('SchemaServiceInterface: getStocks is not implemented')
+    throw new Error('SchemaServiceInterface: getSchemas is not implemented')
   }
   getSchema () {
-
+    throw new Error('SchemaServiceInterface: getSchema is not implemented')
   }
 }
 
 // Compile static json files
-const readSchemasFromDir (dir) {
+const readSchemasFromDir = (dir) => {
   return new Promise((resolve, reject) => {
     glob(dir, {}, function (err, files) {
       const schemas = files
@@ -25,9 +25,9 @@ const readSchemasFromDir (dir) {
       })
       .filter(x => x)
       .reduce((prev, d) => {
-        const regex = /\/schemas\/(.*)/igm
+        const regex = /\/schemas\/(.*)#$/igm
         const matches = regex.exec(d.id)
-        const name = matches && matches.length ? matches[1]: null
+        const name = matches && matches.length ? matches[1] : null
         if (!name) {
           return
         }
@@ -36,13 +36,15 @@ const readSchemasFromDir (dir) {
       }, {})
 
       resolve(schemas)
-        
     })
   })
 }
 
+let schemas = null
 
-const schemas = readSchemasFromDir('**/schema/*.json')
+readSchemasFromDir('**/schema/*.json').then((value) => {
+  schemas = value
+})
 
 class SchemaService extends SchemaServiceInterface {
   /*

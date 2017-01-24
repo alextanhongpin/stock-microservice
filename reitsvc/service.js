@@ -8,13 +8,23 @@ class ReitServiceInterface {
 }
 
 class ReitService extends ReitServiceInterface {
-  async getReits () {
+  async getReits ({ query, sort }) {
     // Serve static data
-    const mappedData = mapReits(reitsData)
-    return Promise.resolve({
-      data: mappedData,
-      _total: mappedData.length
-    })
+    let mappedData = mapReits(reitsData)
+    if (query) {
+      const filteredData = mappedData.filter((data) => {
+        return data.name.toLowerCase().indexOf(query) !== -1
+      })
+      return Promise.resolve({
+        data: filteredData,
+        _total: filteredData.length
+      })
+    } else {
+      return Promise.resolve({
+        data: mappedData,
+        _total: mappedData.length
+      })
+    }
   }
 }
 
@@ -22,11 +32,11 @@ const mapReit = (reit) => {
   return {
     assets_type: reit['Assets Type'],
     dpu: reit['DPU (sen)'],
-    nav: reit['NAV'],
+    nav: reit['NAV (RM)'],
     period: reit['Period'],
-    price: reit['Price'],
+    price: reit['Price (RM)'],
     name: reit['REIT'],
-    yield: reit['Yield'],
+    yield: reit['Yield']
   }
 }
 const mapReits = (reits) => {

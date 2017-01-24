@@ -2,6 +2,7 @@
 const Parser = (ajv) => {
   const request = (schema) => {
     return (req) => {
+      console.log(req)
       const validator = ajv.getSchema(schema)
       const isValid = validator(req)
       if (!isValid) {

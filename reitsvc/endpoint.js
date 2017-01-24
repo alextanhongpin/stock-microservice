@@ -4,12 +4,11 @@ import schema from './schema.js'
 
 const getReits = async(ctx, next) => {
   try {
-
-    const request = {
-      paging: '',
-      sort: ''
-    }
-    const reits = await ctx.service.getReits()
+    console.log(ctx.query)
+    const request = schema.getReitsRequest({
+      query: ctx.query.query
+    })
+    const reits = await ctx.service.getReits(request)
     const response = schema.getReitsResponse(reits)
 
     // Serve the .json

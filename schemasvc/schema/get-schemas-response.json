@@ -2,5 +2,6 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "id": "http://localhost:3000/schemas/get-schemas-response.json#",
   "title": "Get Schemas Response",
-  "type": "object"
+  "type": "object",
+  "properties": {}
 }

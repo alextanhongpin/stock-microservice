@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  "id": "http://localhost:3000/schemas/get-reits-request.json#",
+  "properties": {
+    "query": {
+      "description": "the search query",
+      "type": "string"
+    },
+    "sort": {
+      "description": "the sort params",
+      "enum": [
+        "assets_type",
+        "-assets_type",
+        "name",
+        "-name",
+        "period",
+        "-period",
+        "nav",
+        "-nav",
+        "dpu",
+        "-dpu",
+        "price",
+        "-price",
+        "yield",
+        "-yield"
+      ],
+      "type": "string"
+    }
+  },
+  "title": "Get reits request",
+  "type": "object"
+}

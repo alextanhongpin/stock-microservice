@@ -1,2 +1,2 @@
 web: npm start
-mongo: sudo mongod --config /usr/local/etc/mongod.conf
+mongo: mongod --config /usr/local/etc/mongod.conf

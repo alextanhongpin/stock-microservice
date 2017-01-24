@@ -19,7 +19,7 @@ route.get('/api/v1/stocks', Endpoint.getStocks)
 route.post('/api/v1/stocks', Endpoint.postStock)
 
 route.get('/api/v1/quotes/yahoo-finance', Endpoint.getYahooFinanceData)
-route.get('/api/v1/quotes/i3investor', Endpoint.getI3InvestorData)
+route.get('/api/v1/quotes/i3investor', Endpoint.geti3investorData)
 route.get('/api/v1/quotes/stock-biz', Endpoint.getMalaysiaStockBizData)
 
 export default route

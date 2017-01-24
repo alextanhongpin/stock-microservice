@@ -6,10 +6,12 @@ import schema from './schema.js'
 const getSchema = async(ctx, next) => {
   try {
     const request = schema.getSchemaRequest({
-      schema_id: ctx.request.body.schema_id
+      schema_id: ctx.params.schema_id
     })
     const data = await ctx.service.getSchema(request)
-    const response = schema.getSchemaResponse(data)
+    const response = schema.getSchemaResponse({
+      data: data
+    })
 
     ctx.status = 200
     ctx.body = response
@@ -21,10 +23,11 @@ const getSchema = async(ctx, next) => {
 // GET /schemas
 const getSchemas = async(ctx, next) => {
   try {
-
-    const request = schema.getSchemasRequest()
+    const request = schema.getSchemasRequest({})
     const data = await ctx.service.getSchemas(request)
-    const response = schema.getSchemasResponse(data)
+    const response = schema.getSchemasResponse({
+      data: data
+    })
 
     ctx.status = 200
     ctx.body = response

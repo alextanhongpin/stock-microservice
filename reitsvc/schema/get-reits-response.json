@@ -7,7 +7,7 @@
       "items": {
         "type": "object",
         "required": [
-          "assets_tyoe",
+          "assets_type",
           "dpu",
           "nav",
           "period",
@@ -47,8 +47,12 @@
         }
       },
       "type": "array"
+    },
+    "_total": {
+      "type": "integer",
+      "description": "the number of reits available"
     }
   },
-  "title": "Stocks",
+  "title": "Get reits response",
   "type": "object"
 }
