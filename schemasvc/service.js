@@ -49,7 +49,7 @@ class SchemaService extends SchemaServiceInterface {
    * Description: Returns a list of schemas
   **/
   async getSchemas () {
-    return Promise.resolve(schemas.map(d => d.id))
+    return Promise.resolve(Object.values(schemas).map(d => d.id))
   }
   /*
    * @params {string} schema_id: the id of the schema
