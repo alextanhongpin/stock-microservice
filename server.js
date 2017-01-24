@@ -19,9 +19,19 @@ import stocksvcWebSocket from './stocksvc/transport-websocket.js'
 import client from './client/index.js'
 
 import errors from './modules/errors.js'
+import FeatureToggle from './common/feature-toggle.js'
 
 const PORT = process.env.PORT
+
+// Feature Toggle
+const SCHEMASVC = process.env.SCHEMASVC
+const STOCKSVC = process.env.STOCKSVC
+const REITSVC = process.env.REITSVC
+const GLOSSARYSVC = process.env.GLOSSARYSVC
+
 const app = new Koa()
+
+const featureToggle = FeatureToggle(app)
 
 render(app, {
   root: path.join(__dirname, 'view'),
@@ -40,17 +50,23 @@ app
 // .use(logger())
 .use(parser())
 
-app
-.use(stocksvcHTTP.routes())
-.use(stocksvcHTTP.allowedMethods())
+featureToggle.register({
+  service: stocksvcHTTP,
+  name: 'stocksvc',
+  enabled: STOCKSVC
+})
 
-app
-.use(schemasvc.routes())
-.use(schemasvc.allowedMethods())
+featureToggle.register({
+  service: schemasvc,
+  name: 'schemasvc',
+  enabled: SCHEMASVC
+})
 
-app
-.use(reitsvc.routes())
-.use(reitsvc.allowedMethods())
+featureToggle.register({
+  service: reitsvc,
+  name: 'reitsvc',
+  enabled: REITSVC
+})
 
 app
 .use(client.routes())

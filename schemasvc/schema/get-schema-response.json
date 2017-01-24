@@ -1,0 +1,6 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://localhost:3000/schemas/get-schema-response.json#",
+  "title": "Get Schema Response",
+  "type": "object"
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://localhost:3000/schemas/get-schema-request.json#",
+  "title": "Get Schema Request",
+  "additionalProperties": false,
+  "required": [
+    "schema_id"
+  ],
+  "properties": {
+    "schema_id": {
+      "type": "string",
+      "description": "the id of the schema in string format"
+    }
+  },
+  "type": "object"
+}
