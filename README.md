@@ -1,2 +1,7 @@
-# stock-quote
-Sample architecture for stock app
+# NodeJS Finance Microservice
+
+Sample architecture for stocks related services.
+
+## TODO:
+
+JSON-API integration
