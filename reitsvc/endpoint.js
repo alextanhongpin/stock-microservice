@@ -4,10 +4,7 @@ import schema from './schema.js'
 
 const getReits = async(ctx, next) => {
   try {
-    console.log(ctx.query)
-    const request = schema.getReitsRequest({
-      query: ctx.query.query
-    })
+    const request = schema.getReitsRequest(ctx.query)
     const reits = await ctx.service.getReits(request)
     const response = schema.getReitsResponse(reits)
 

@@ -221,7 +221,13 @@ function initWebSocket () {
   } else {
     window.alert('websocket unsupported')
   }
-  ws = new WebSocket('ws://localhost:8080')
+  ws = new WebSocket('ws://localhost:8080', {
+    headers : {
+      token: '123456'
+    }
+  })
+
+
 
   ws.onopen = (e) => {
     console.log('connection to server opened')
